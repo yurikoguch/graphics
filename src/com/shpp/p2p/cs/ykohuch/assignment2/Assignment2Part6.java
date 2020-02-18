@@ -3,54 +3,47 @@ package com.shpp.p2p.cs.ykohuch.assignment2;
 
 import acm.graphics.GFillable;
 import acm.graphics.GOval;
-import acm.graphics.GRectangle;
 import com.shpp.cs.a.graphics.WindowProgram;
 
 import java.awt.*;
 
+
 public class Assignment2Part6 extends WindowProgram {
+    /*define constants
+    * radius
+    * diameter
+    * number of segments
+    * start x coordinate
+    * start y coordinate
+    * horizontal distance between segments
+    * vertical distance between segments*/
+    private static final  double RADIUS = 50;
+    private static final double DIAMETER = RADIUS*2;
+    private static final int SEGMENTS = 6;
+    private static final double X = 50;
+    private static final double Y = 50;
+    private static final double HORIZONTAL_DISTANCE = 50;
+    private static final double VERTICAL_DISTANCE = 30;
 
+    /*basic method in which will be caterpillar placed*/
     public void run(){
-        //define constants
-        double r = 50;
-        double d = r*2;
-        double x = getWidth()/3 - d;
-        double y = getHeight()/2 - d;
-
-        //create parts of the caterpillar
-        //First part
-        GOval circleOne = creatingCircle(Color.GREEN, x, y, r);
-        add(circleOne);
-        GRectangle boundsOfcircleOne = circleOne.getBounds();
-
-        //Second part
-        GOval circleTwo = creatingCircle(Color.GREEN, boundsOfcircleOne.getX() + r, boundsOfcircleOne.getY() - r, r);
-        add(circleTwo);
-
-        //Third part
-        GOval circleThree = creatingCircle(Color.GREEN, x+d, y, r);
-        add(circleThree);
-        GRectangle boundsOfCircleThree = circleOne.getBounds();
-
-        //Fourth part
-        GOval circleFour = creatingCircle(Color.GREEN, boundsOfCircleThree.getX() + (d+r), boundsOfCircleThree.getY() - r,r);
-        add(circleFour);
-
-        //Fifth parth
-        GOval circleFive = creatingCircle(Color.GREEN, x+(d*2), y, r);
-        add(circleFive);
-        GRectangle boundsOfCircleFive = circleOne.getBounds();
-
-        //Sixth part
-        GOval circleSix = creatingCircle(Color.GREEN, boundsOfCircleFive.getX() + (d*2+r), boundsOfCircleFive.getY() - r,r);
-        add(circleSix);
+        caterpillar(SEGMENTS);
     }
 
-    //creating the circle
-    private GOval creatingCircle(Color color, double x, double y, double r){
-        GOval circle = new GOval(x, y, r*2, r*2);
-        fillObj(circle, color);
+    /*here used a loop to place and the number of segments defined by a constant*/
+    private void caterpillar(int segments) {
+        for (int i= 0; i<SEGMENTS; i++){
+            creatingCircle(i);
+        }
+    }
+
+    /*creating the circle and define parameters for each segment of caterpillar
+    * if segment is divided into two without rest he will be placed upper than odd segments*/
+    private GOval creatingCircle(int number){
+        GOval circle = new GOval(X+HORIZONTAL_DISTANCE*number, Y-VERTICAL_DISTANCE*(number%2), DIAMETER, DIAMETER);
+        fillObj(circle, Color.GREEN);
         circle.setColor(Color.RED);
+        add(circle);
         return circle;
     }
 

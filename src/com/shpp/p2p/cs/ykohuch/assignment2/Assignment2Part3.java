@@ -7,6 +7,8 @@ import com.shpp.cs.a.graphics.WindowProgram;
 
 import java.awt.*;
 
+import static java.awt.Color.black;
+
 public class Assignment2Part3 extends WindowProgram {
     /* Constants controlling the relative positions of the
      * three toes to the upper-left corner of the pawprint.
@@ -43,13 +45,9 @@ public class Assignment2Part3 extends WindowProgram {
     public static final int APPLICATION_WIDTH = 270;
     public static final int APPLICATION_HEIGHT = 220;
 
-    //basic function
+    /*basic function
+      locate the paws*/
     public void run() {
-        //set width and height of the window
-        int x = getWidth()/3 - APPLICATION_WIDTH/3;
-        int y = getHeight()/2 - APPLICATION_HEIGHT/2;
-
-        //locate the paws
         drawPawprint(20, 20);
         drawPawprint(180, 70);
     }
@@ -62,35 +60,26 @@ public class Assignment2Part3 extends WindowProgram {
      * @param y The y coordinate of the upper-left corner of the bounding box for the pawprint.
      */
     private void drawPawprint(double x, double y) {
+        /*add fingers*/
+        add(basicFinger(FIRST_TOE_OFFSET_X + x, FIRST_TOE_OFFSET_Y + y, TOE_WIDTH, TOE_HEIGHT));
+        add(basicFinger(SECOND_TOE_OFFSET_X + x, SECOND_TOE_OFFSET_Y + y, TOE_WIDTH, TOE_HEIGHT));
+        add(basicFinger(THIRD_TOE_OFFSET_X + x, THIRD_TOE_OFFSET_Y + y, TOE_WIDTH, TOE_HEIGHT));
 
-        /*creating a fingers
-         *creating first finger. And set the parameters*/
-        GOval firstFinger = new GOval(FIRST_TOE_OFFSET_X+ x, FIRST_TOE_OFFSET_Y+ y, TOE_WIDTH, TOE_HEIGHT);
-        firstFinger.setColor(Color.black);
-        firstFinger.setFilled(true);
-        firstFinger.setFillColor(Color.black);
-        add(firstFinger);
-
-        //creating second finger. And set the parameters
-        GOval secondFinger = new GOval(SECOND_TOE_OFFSET_X+ x, SECOND_TOE_OFFSET_Y+ y, TOE_WIDTH, TOE_HEIGHT);
-        secondFinger.setColor(Color.black);
-        secondFinger.setFilled(true);
-        secondFinger.setFillColor(Color.black);
-        add(secondFinger);
-
-        //creating third finger. And set the parameters
-        GOval thirdFinger = new GOval(THIRD_TOE_OFFSET_X+ x, THIRD_TOE_OFFSET_Y+ y, TOE_WIDTH, TOE_HEIGHT);
-        thirdFinger.setColor(Color.black);
-        thirdFinger.setFilled(true);
-        thirdFinger.setFillColor(Color.black);
-        add(thirdFinger);
-
-        //creating a foot
-        //set the parameters of the foot
-        GOval foot = new GOval(HEEL_OFFSET_X+ x, HEEL_OFFSET_Y+ y, HEEL_WIDTH, HEEL_HEIGHT);
+        /*creating a foot
+         *set the parameters of the foot*/
+        GOval foot = new GOval(HEEL_OFFSET_X + x, HEEL_OFFSET_Y + y, HEEL_WIDTH, HEEL_HEIGHT);
         foot.setColor(Color.black);
         foot.setFilled(true);
         foot.setFillColor(Color.black);
         add(foot);
+    }
+
+    /*the oval on the basis of which all fingers in the method drawPawprint will be added*/
+    private GOval basicFinger(double x, double y, double w, double h){
+        GOval finger = new GOval(x, y, w, h);
+        finger.setColor(black);
+        finger.setFilled(true);
+        finger.setFillColor(Color.black);
+        return finger;
     }
 }
